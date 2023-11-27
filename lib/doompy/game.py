@@ -1,6 +1,7 @@
 import pygame as pg
 import sys
 from pathlib import Path
+
 sys.path.append(Path(__file__).parents[1].joinpath("lib").as_posix())
 
 from doompy.settings import config
@@ -48,7 +49,7 @@ class Game:
         self.weapon.update()
         pg.display.flip()
         self.delta_time = self.clock.tick(config.FPS)
-        pg.display.set_caption(f'{self.clock.get_fps() :.1f}')
+        pg.display.set_caption(f"{self.clock.get_fps() :.1f}")
 
     def draw(self):
         # self.screen.fill('black')

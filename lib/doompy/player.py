@@ -10,7 +10,7 @@ class Player:
     def __init__(self, game: Game, weapon: Weapon = None):
         self.weapon = weapon
 
-        self.pain_sound = pg.mixer.Sound(config.resource_root.joinpath('sound/player_pain.wav'))
+        self.pain_sound = pg.mixer.Sound(config.resource_root.joinpath("sound/player_pain.wav"))
         self.pain_sound.set_volume(config.VOLUME)
 
         self.game = game
@@ -109,10 +109,14 @@ class Player:
             self.y += dy
 
     def draw(self):
-        pg.draw.line(self.game.screen, 'yellow', (self.x * 100, self.y * 100),
-                    (self.x * 100 + config.WIDTH * math.cos(self.angle),
-                     self.y * 100 + config.WIDTH * math. sin(self.angle)), 2)
-        pg.draw.circle(self.game.screen, 'green', (self.x * 100, self.y * 100), 15)
+        pg.draw.line(
+            self.game.screen,
+            "yellow",
+            (self.x * 100, self.y * 100),
+            (self.x * 100 + config.WIDTH * math.cos(self.angle), self.y * 100 + config.WIDTH * math.sin(self.angle)),
+            2,
+        )
+        pg.draw.circle(self.game.screen, "green", (self.x * 100, self.y * 100), 15)
 
     def mouse_control(self):
         mx, my = pg.mouse.get_pos()

@@ -2,14 +2,20 @@ import pygame as pg
 import os
 import math
 from collections import deque
-from pathlib import  Path
-from typing import  Union
+from pathlib import Path
+from typing import Union
 from doompy.settings import config
 
 
 class SpriteObject:
-    def __init__(self, game, path=config.resource_root.joinpath('sprites/static_sprites/candlebra.png'),
-                 pos=(10.5, 3.5), scale=0.7, shift=0.27):
+    def __init__(
+        self,
+        game,
+        path=config.resource_root.joinpath("sprites/static_sprites/candlebra.png"),
+        pos=(10.5, 3.5),
+        scale=0.7,
+        shift=0.27,
+    ):
         self.game = game
         self.player = game.player
         self.x, self.y = pos
@@ -57,8 +63,15 @@ class SpriteObject:
 
 
 class AnimatedSprite(SpriteObject):
-    def __init__(self, game, path=config.resource_root.joinpath('sprites/animated_sprites/green_light/0.png'),
-                 pos=(11.5, 3.5), scale=0.8, shift=0.16, animation_time=120):
+    def __init__(
+        self,
+        game,
+        path=config.resource_root.joinpath("sprites/animated_sprites/green_light/0.png"),
+        pos=(11.5, 3.5),
+        scale=0.8,
+        shift=0.16,
+        animation_time=120,
+    ):
         super().__init__(game, path, pos, scale, shift)
         self.animation_time = animation_time
         self.path = path.parent

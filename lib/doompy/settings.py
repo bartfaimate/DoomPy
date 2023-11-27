@@ -1,20 +1,19 @@
 import math
-from pathlib import  Path
-from typing import  Union, List
-import  json
+from pathlib import Path
+from typing import Union, List
+import json
 
 
 class Config:
-
     inited = False
     __state = {}
 
     def __new__(cls, *args, **kwargs):
-        if not hasattr(cls, 'instance'):
+        if not hasattr(cls, "instance"):
             cls.instance = super(Config, cls).__new__(cls)
             cls.__version__ = "0.1"
             cls.__state = kwargs
-            
+
             config_path = kwargs.get("config_path", Path(__file__).parents[2].resolve().joinpath("etc/config.json"))
             cls.load_config(config_path)
         return cls.instance
@@ -26,7 +25,6 @@ class Config:
 
     @classmethod
     def load_config(cls, config_file_path: Union[str, Path]):
-
         config_file_path = Path(config_file_path) if isinstance(config_file_path, str) else config_file_path
         with config_file_path.open("r") as fp:
             config = json.load(fp)
@@ -42,7 +40,6 @@ class Config:
         cls.PLAYER_SIZE_SCALE: float
         cls.PLAYER_MAX_HEALTH: int
 
-
         cls.MOUSE_SENSITIVITY: float
         cls.MOUSE_MAX_REL: float
         cls.MOUSE_BORDER_LEFT: int
@@ -57,7 +54,7 @@ class Config:
         cls.WIDTH, cls.HEIGHT = cls.RES
         cls.HALF_WIDTH = cls.WIDTH // 2
         cls.HALF_HEIGHT = cls.HEIGHT // 2
-     
+
         cls.MOUSE_BORDER_RIGHT = cls.WIDTH - cls.MOUSE_BORDER_LEFT
 
         cls.FOV = math.pi / 3
@@ -72,7 +69,6 @@ class Config:
         cls.HALF_TEXTURE_SIZE = cls.TEXTURE_SIZE // 2
 
         cls.resource_root = Path(__file__).parents[2].resolve().joinpath("resources")
-
 
 
 config = Config()

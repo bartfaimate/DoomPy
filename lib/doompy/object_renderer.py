@@ -7,15 +7,19 @@ class ObjectRenderer:
         self.game = game
         self.screen = game.screen
         self.wall_textures = self.load_wall_textures()
-        self.sky_image = self.get_texture(config.resource_root.joinpath('textures/sky.png'), (config.WIDTH, config.HALF_HEIGHT))
+        self.sky_image = self.get_texture(
+            config.resource_root.joinpath("textures/sky.png"), (config.WIDTH, config.HALF_HEIGHT)
+        )
         self.sky_offset = 0
-        self.blood_screen = self.get_texture(config.resource_root.joinpath('textures/blood_screen.png'), config.RES)
+        self.blood_screen = self.get_texture(config.resource_root.joinpath("textures/blood_screen.png"), config.RES)
         self.digit_size = 90
-        self.digit_images = [self.get_texture(config.resource_root.joinpath(f'textures/digits/{i}.png'), [self.digit_size] * 2)
-                             for i in range(11)]
+        self.digit_images = [
+            self.get_texture(config.resource_root.joinpath(f"textures/digits/{i}.png"), [self.digit_size] * 2)
+            for i in range(11)
+        ]
         self.digits = dict(zip(map(str, range(11)), self.digit_images))
-        self.game_over_image = self.get_texture(config.resource_root.joinpath('textures/game_over.png'), config.RES)
-        self.win_image = self.get_texture(config.resource_root.joinpath('textures/win.png'), config.RES)
+        self.game_over_image = self.get_texture(config.resource_root.joinpath("textures/game_over.png"), config.RES)
+        self.win_image = self.get_texture(config.resource_root.joinpath("textures/win.png"), config.RES)
 
     def draw(self):
         self.draw_background()
@@ -32,7 +36,7 @@ class ObjectRenderer:
         health = str(self.game.player.health)
         for i, char in enumerate(health):
             self.screen.blit(self.digits[char], (i * self.digit_size, 0))
-        self.screen.blit(self.digits['10'], ((i + 1) * self.digit_size, 0))
+        self.screen.blit(self.digits["10"], ((i + 1) * self.digit_size, 0))
 
     def player_damage(self):
         self.screen.blit(self.blood_screen, (0, 0))
@@ -56,9 +60,9 @@ class ObjectRenderer:
 
     def load_wall_textures(self):
         return {
-            2: self.get_texture(config.resource_root.joinpath('textures/2.png')),
-            3: self.get_texture(config.resource_root.joinpath('textures/3.png')),
-            1: self.get_texture(config.resource_root.joinpath('textures/1.png')),
-            4: self.get_texture(config.resource_root.joinpath('textures/4.png')),
-            5: self.get_texture(config.resource_root.joinpath('textures/5.png')),
+            2: self.get_texture(config.resource_root.joinpath("textures/2.png")),
+            3: self.get_texture(config.resource_root.joinpath("textures/3.png")),
+            1: self.get_texture(config.resource_root.joinpath("textures/1.png")),
+            4: self.get_texture(config.resource_root.joinpath("textures/4.png")),
+            5: self.get_texture(config.resource_root.joinpath("textures/5.png")),
         }

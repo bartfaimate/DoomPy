@@ -6,23 +6,30 @@ import pygame as pg
 
 
 class Weapon(AnimatedSprite):
-    def __init__(self,
-                 game,
-                 path=config.resource_root.joinpath('sprites/weapon/shotgun/0.png'), 
-                 scale=0.4,
-                 animation_time=90,
-                 sound_path=config.resource_root.joinpath('sound/shotgun.wav'),
-                 damage=100
-                 ):
+    def __init__(
+        self,
+        game,
+        path=config.resource_root.joinpath("sprites/weapon/shotgun/0.png"),
+        scale=0.4,
+        animation_time=90,
+        sound_path=config.resource_root.joinpath("sound/shotgun.wav"),
+        damage=100,
+    ):
         super().__init__(game=game, path=path, scale=scale, animation_time=animation_time)
 
         self.shoot_sound = pg.mixer.Sound(sound_path)
         self.shoot_sound.set_volume(config.VOLUME)
-        
+
         self.images = deque(
-            [pg.transform.smoothscale(img, (self.image.get_width() * scale, self.image.get_height() * scale))
-             for img in self.images])
-        self.weapon_pos = (config.HALF_WIDTH - self.images[0].get_width() // 2, config.HEIGHT - self.images[0].get_height())
+            [
+                pg.transform.smoothscale(img, (self.image.get_width() * scale, self.image.get_height() * scale))
+                for img in self.images
+            ]
+        )
+        self.weapon_pos = (
+            config.HALF_WIDTH - self.images[0].get_width() // 2,
+            config.HEIGHT - self.images[0].get_height(),
+        )
         self.reloading = False
         self.num_images = len(self.images)
         self.frame_counter = 0
@@ -51,31 +58,39 @@ class Weapon(AnimatedSprite):
 
 
 class Shotgun(Weapon):
-    def __init__(self, game, 
-                 path=config.resource_root.joinpath('sprites/weapon/shotgun/0.png'), 
-                 scale=0.4, 
-                 animation_time=90,
-                 sound_path=config.resource_root.joinpath('sound/shotgun.wav'), 
-                 damage=50):
+    def __init__(
+        self,
+        game,
+        path=config.resource_root.joinpath("sprites/weapon/shotgun/0.png"),
+        scale=0.4,
+        animation_time=90,
+        sound_path=config.resource_root.joinpath("sound/shotgun.wav"),
+        damage=50,
+    ):
         super().__init__(game, path, scale, animation_time, sound_path, damage)
 
 
 class Pistol(Weapon):
-    def __init__(self, game, 
-                 path=config.resource_root.joinpath('sprites/weapon/shotgun/0.png'), 
-                 scale=0.4, 
-                 animation_time=30,
-                 sound_path=config.resource_root.joinpath('sound/shotgun.wav'), 
-                 damage=20):
+    def __init__(
+        self,
+        game,
+        path=config.resource_root.joinpath("sprites/weapon/shotgun/0.png"),
+        scale=0.4,
+        animation_time=30,
+        sound_path=config.resource_root.joinpath("sound/shotgun.wav"),
+        damage=20,
+    ):
         super().__init__(game, path, scale, animation_time, sound_path, damage)
 
 
 class MachineGun(Weapon):
-    def __init__(self, 
-                 game, 
-                 path=config.resource_root.joinpath('sprites/weapon/shotgun/0.png'), 
-                 scale=0.4, 
-                 animation_time=10, 
-                 sound_path=config.resource_root.joinpath('sound/shotgun.wav'), 
-                 damage=20):
+    def __init__(
+        self,
+        game,
+        path=config.resource_root.joinpath("sprites/weapon/shotgun/0.png"),
+        scale=0.4,
+        animation_time=10,
+        sound_path=config.resource_root.joinpath("sound/shotgun.wav"),
+        damage=20,
+    ):
         super().__init__(game, path, scale, animation_time, sound_path, damage)
