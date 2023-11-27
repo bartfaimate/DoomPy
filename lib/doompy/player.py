@@ -1,11 +1,18 @@
 from doompy.settings import config
+from doompy.weapon import Weapon
 import pygame as pg
 import math
 
+from doompy.game import Game
 
 
 class Player:
-    def __init__(self, game):
+    def __init__(self, game: Game, weapon: Weapon = None):
+        self.weapon = weapon
+
+        self.pain_sound = pg.mixer.Sound(config.resource_root.joinpath('sound/player_pain.wav'))
+        self.pain_sound.set_volume(config.VOLUME)
+
         self.game = game
         self.x, self.y = config.PLAYER_POS
         self.angle = config.PLAYER_ANGLE
@@ -16,6 +23,10 @@ class Player:
         self.time_prev = pg.time.get_ticks()
         # diagonal movement correction
         self.diag_move_corr = 1 / math.sqrt(2)
+
+    def set_weapon(self, weapon: Weapon):
+        if self.weapon != weapon:
+            self.weapon = weapon
 
     def recover_health(self):
         if self.check_health_recovery_delay() and self.health < config.PLAYER_MAX_HEALTH:
@@ -34,18 +45,18 @@ class Player:
             pg.time.delay(1500)
             self.game.new_game()
 
-    def get_damage(self, damage):
+    def get_damage(self, damage: int):
         self.health -= damage
         self.game.object_renderer.player_damage()
-        self.game.sound.player_pain.play()
+        self.game.player.pain_sound.play()
         self.check_game_over()
 
     def single_fire_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
-            if event.button == 1 and not self.shot and not self.game.weapon.reloading:
-                self.game.sound.shotgun.play()
+            if event.button == 1 and not self.shot and not self.weapon.reloading:
+                self.weapon.shoot_sound.play()
                 self.shot = True
-                self.game.weapon.reloading = True
+                self.weapon.reloading = True
 
     def movement(self):
         sin_a = math.sin(self.angle)

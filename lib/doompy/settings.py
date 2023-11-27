@@ -7,14 +7,22 @@ import  json
 class Config:
 
     inited = False
+    __state = {}
 
-    def __new__(cls):
+    def __new__(cls, *args, **kwargs):
         if not hasattr(cls, 'instance'):
             cls.instance = super(Config, cls).__new__(cls)
             cls.__version__ = "0.1"
-            config_path = Path(__file__).parents[2].resolve().joinpath("etc/config.json")
+            cls.__state = kwargs
+            
+            config_path = kwargs.get("config_path", Path(__file__).parents[2].resolve().joinpath("etc/config.json"))
             cls.load_config(config_path)
         return cls.instance
+
+    @classmethod
+    def __set_attributes(cls, **kwargs):
+        for k, v in kwargs.items():
+            setattr(cls, k, v)
 
     @classmethod
     def load_config(cls, config_file_path: Union[str, Path]):
@@ -44,8 +52,7 @@ class Config:
         cls.VOLUME: float
         cls.MUSIC_VOLUME: float
 
-        for k, v in config.items():
-            setattr(cls, k, v)
+        cls.__set_attributes(**config)
 
         cls.WIDTH, cls.HEIGHT = cls.RES
         cls.HALF_WIDTH = cls.WIDTH // 2
@@ -65,6 +72,7 @@ class Config:
         cls.HALF_TEXTURE_SIZE = cls.TEXTURE_SIZE // 2
 
         cls.resource_root = Path(__file__).parents[2].resolve().joinpath("resources")
+
 
 
 config = Config()

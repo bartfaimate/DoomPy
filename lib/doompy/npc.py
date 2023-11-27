@@ -7,7 +7,7 @@ from random import randint, random
 
 class NPC(AnimatedSprite):
     def __init__(self, game, path=config.resource_root.joinpath('sprites/npc/soldier/0.png'), pos=(10.5, 5.5),
-                 scale=0.6, shift=0.38, animation_time=180):
+                 scale=0.6, shift=0.38, animation_time=180, attack_damage=10):
         super().__init__(game, path, pos, scale, shift, animation_time)
         self.attack_images = self.get_images(self.path.joinpath('attack'))
         self.death_images = self.get_images(self.path.joinpath('death'))
@@ -19,7 +19,7 @@ class NPC(AnimatedSprite):
         self.speed = 0.03
         self.size = 20
         self.health = 100
-        self.attack_damage = 10
+        self.attack_damage = attack_damage
         self.accuracy = 0.15
         self.alive = True
         self.pain = False
@@ -77,7 +77,7 @@ class NPC(AnimatedSprite):
                 self.game.sound.npc_pain.play()
                 self.game.player.shot = False
                 self.pain = True
-                self.health -= self.game.weapon.damage
+                self.health -= self.game.player.weapon.damage
                 self.check_health()
 
     def check_health(self):

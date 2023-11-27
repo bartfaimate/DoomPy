@@ -71,7 +71,7 @@ class AnimatedSprite(SpriteObject):
         self.check_animation_time()
         self.animate(self.images)
 
-    def animate(self, images):
+    def animate(self, images: deque):
         if self.animation_trigger:
             images.rotate(-1)
             self.image = images[0]
@@ -83,7 +83,7 @@ class AnimatedSprite(SpriteObject):
             self.animation_time_prev = time_now
             self.animation_trigger = True
 
-    def get_images(self, path: Union[str, Path] ):
+    def get_images(self, path: Union[str, Path]) -> deque:
         path = Path(path) if isinstance(path, str) else path
         images = deque()
         for file_name in path.iterdir():
