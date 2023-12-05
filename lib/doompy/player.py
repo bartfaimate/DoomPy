@@ -3,11 +3,10 @@ from doompy.weapon import Weapon
 import pygame as pg
 import math
 
-from doompy.game import Game
 
 
 class Player:
-    def __init__(self, game: Game, weapon: Weapon = None):
+    def __init__(self, game: "Game", weapon: Weapon = None):
         self.weapon = weapon
 
         self.pain_sound = pg.mixer.Sound(config.resource_root.joinpath("sound/player_pain.wav"))
@@ -54,9 +53,11 @@ class Player:
     def single_fire_event(self, event):
         if event.type == pg.MOUSEBUTTONDOWN:
             if event.button == 1 and not self.shot and not self.weapon.reloading:
-                self.weapon.shoot_sound.play()
-                self.shot = True
-                self.weapon.reloading = True
+                # self.weapon.shoot_sound.play()
+                # self.shot = True
+                self.weapon.single_shot()
+                # self.weapon.reloading = True
+                # self.shot = False
 
     def movement(self):
         sin_a = math.sin(self.angle)

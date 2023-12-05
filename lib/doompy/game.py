@@ -10,7 +10,7 @@ from doompy.player import Player
 from doompy.raycasting import RayCasting
 from doompy.object_renderer import ObjectRenderer
 from doompy.object_handler import ObjectHandler
-from doompy.weapon import Weapon, Pistol, Shotgun
+from doompy.weapon import Weapon, Pistol, Shotgun, FooGun
 from doompy.sound import Sound
 from doompy.pathfinding import PathFinding
 
@@ -32,7 +32,11 @@ class Game:
         self.map = Map(self)
 
         self.player = Player(self)
-        self.weapon = Shotgun(self)
+        self.weapon = Pistol(self)
+        self.weapon = FooGun(self)
+
+        # self.weapon = Shotgun(self)
+
         self.player.set_weapon(self.weapon)
 
         self.object_renderer = ObjectRenderer(self)

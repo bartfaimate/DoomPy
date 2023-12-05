@@ -15,6 +15,6 @@
   "FLOOR_COLOR": [30, 30, 30],
   "MAX_DEPTH": 20,
   "TEXTURE_SIZE": 256,
-  "VOLUME": 0.1,
+  "VOLUME": 0.05,
   "MUSIC_VOLUME": 0.0
 }
